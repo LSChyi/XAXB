@@ -59,7 +59,6 @@ class AnswerMgr {
         func generatePermutation(numberSet: [Int], previous: [Int] = [Int]()) -> [ Answer ] {
             var partialPermutation = [Answer]()
             if numberSet.count == 1 {
-                print(previous + numberSet)
                 let answer = Answer(answer: previous + numberSet)
                 partialPermutation.append(answer)
                 return partialPermutation
@@ -76,6 +75,10 @@ class AnswerMgr {
                 }
             }
             return partialPermutation
+        }
+
+        for combination in generateCombination() {
+            answers += generatePermutation(combination)
         }
     }
 }
