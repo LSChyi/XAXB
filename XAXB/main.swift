@@ -29,7 +29,14 @@ func getAnswer() -> (Int, Int) {
 }
 
 class AnswerMgr {
+    struct Record {
+        let guess: Answer
+        let userAnswer: (Int, Int)
+    }
+    
     var answers = [Answer]()
+    var records = [Record]()
+    
     init() {
         func generateCombination() -> [ [Int] ] {
             var ansCombinations = [[Int]]()
@@ -93,6 +100,7 @@ class AnswerMgr {
 
     func eliminateAnswers(userAnswer: (Int, Int)) {
         let previousGuess = self.answers[0]
+        self.records.append(Record(guess: previousGuess, userAnswer: userAnswer))
         var removeIndices = [Int]()
         var offsetIdx = 0
         for (idx, guess) in self.answers.enumerate() {
@@ -104,6 +112,12 @@ class AnswerMgr {
 
         for idx in removeIndices {
             self.answers.removeAtIndex(idx)
+        }
+    }
+    
+    func printRecords() {
+        for record in self.records {
+            print("guess: \(record.guess.value), get answer: \(record.userAnswer)")
         }
     }
 }
@@ -148,7 +162,7 @@ repeat {
         print("I guess the number you're thinking is \(currentGuess)")
     } else {
         print("Is there some mistake during the process? please check the record:")
-        // print record
+        answerMgr.printRecords()
         break
     }
 
