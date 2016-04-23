@@ -62,8 +62,7 @@ class AnswerMgr {
                 let answer = Answer(answer: previous + numberSet)
                 partialPermutation.append(answer)
                 return partialPermutation
-            }
-            else {
+            } else {
                 for (idx, number) in numberSet.enumerate() {
                     var currentPart = previous
                     currentPart.append(number)
@@ -88,9 +87,30 @@ class Answer {
     init(answer: [Int]) {
         self.answer = answer
     }
-    func check(numberOfA: Int, numberOfB: Int, answer: [Int]) -> Bool {
-        // check is number of As and Bs are the same
-        return true
+    func check(numberOfA: Int, numberOfB: Int, answer: Answer) -> Bool {
+        var a = 0
+        var b = 0
+        for (myIdx, myNumber) in self.answer.enumerate() {
+            for (compareIdx, compareNumber) in answer.answer.enumerate() {
+                if myNumber == compareNumber {
+                    if myIdx == compareIdx {
+                        a += 1
+                    } else {
+                        b += 1
+                    }
+                }
+            }
+        }
+        return (a == numberOfA) && (b == numberOfB)
+    }
+    var value: String {
+        get {
+            var str = ""
+            for number in answer {
+                str += String(number)
+            }
+            return str
+        }
     }
 }
 
