@@ -241,6 +241,7 @@
 				53B9BF161CCA7CF600B37281 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -31,7 +31,30 @@ func getAnswer() -> (Int, Int) {
 class AnswerMgr {
     var answers = [Answer]()
     init() {
-        // initialize all possible answers
+        func generateCombination() -> [ [Int] ] {
+            let ansCombinations = [[Int]]()
+            for i in 1...960 {
+                let binaryStr = String(i, radix: 2)
+                var counter = 0
+                for bit in binaryStr.characters {
+                    if bit == "1" {
+                        counter += 1
+                    }
+                }
+                if counter == 4 {
+                    let charCount = binaryStr.characters.count
+                    print(binaryStr)
+                    let startIdx = 10 - charCount
+                    var answer = [Int]()
+                    for (idx, bit) in binaryStr.characters.enumerate() {
+                        if bit == "1" {
+                            answer.append(idx + startIdx)
+                        }
+                    }
+                }
+            }
+            return ansCombinations
+        }
     }
 }
 
@@ -45,3 +68,5 @@ class Answer {
         return true
     }
 }
+
+var answerMgr = AnswerMgr()
