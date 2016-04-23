@@ -125,3 +125,17 @@ class Answer {
 }
 
 var answerMgr = AnswerMgr()
+
+var userAnser: (Int, Int)
+repeat {
+    if let currentGuess = answerMgr.currentGuess {
+        print("I guess the number you're thinking is \(currentGuess)")
+    } else {
+        print("Is there some mistake during the process? check the record:")
+        // print record
+        break
+    }
+
+    userAnser = getAnswer()
+
+} while(userAnser != (4, 0))
