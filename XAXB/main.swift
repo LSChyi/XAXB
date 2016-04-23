@@ -80,6 +80,16 @@ class AnswerMgr {
             answers += generatePermutation(combination)
         }
     }
+    
+    var currentGuess: String? {
+        get {
+            if self.answers.count != 0 {
+                return self.answers[0].value
+            } else {
+                return nil
+            }
+        }
+    }
 }
 
 class Answer {
