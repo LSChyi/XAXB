@@ -90,6 +90,22 @@ class AnswerMgr {
             }
         }
     }
+
+    func eliminateAnswers(userAnswer: (Int, Int)) {
+        let previousGuess = self.answers[0]
+        var removeIndices = [Int]()
+        var offsetIdx = 0
+        for (idx, guess) in self.answers.enumerate() {
+            if !previousGuess.check(userAnswer.0, numberOfB: userAnswer.1, answer: guess) {
+                removeIndices.append(idx - offsetIdx)
+                offsetIdx += 1
+            }
+        }
+
+        for idx in removeIndices {
+            self.answers.removeAtIndex(idx)
+        }
+    }
 }
 
 class Answer {
@@ -126,16 +142,17 @@ class Answer {
 
 var answerMgr = AnswerMgr()
 
-var userAnser: (Int, Int)
+var userAnswer: (Int, Int)
 repeat {
     if let currentGuess = answerMgr.currentGuess {
         print("I guess the number you're thinking is \(currentGuess)")
     } else {
-        print("Is there some mistake during the process? check the record:")
+        print("Is there some mistake during the process? please check the record:")
         // print record
         break
     }
 
-    userAnser = getAnswer()
+    userAnswer = getAnswer()
 
-} while(userAnser != (4, 0))
+    answerMgr.eliminateAnswers(userAnswer)
+} while(userAnswer != (4, 0))
