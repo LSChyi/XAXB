@@ -32,7 +32,7 @@ class AnswerMgr {
     var answers = [Answer]()
     init() {
         func generateCombination() -> [ [Int] ] {
-            let ansCombinations = [[Int]]()
+            var ansCombinations = [[Int]]()
             for i in 1...960 {
                 let binaryStr = String(i, radix: 2)
                 var counter = 0
@@ -43,7 +43,6 @@ class AnswerMgr {
                 }
                 if counter == 4 {
                     let charCount = binaryStr.characters.count
-                    print(binaryStr)
                     let startIdx = 10 - charCount
                     var answer = [Int]()
                     for (idx, bit) in binaryStr.characters.enumerate() {
@@ -51,9 +50,32 @@ class AnswerMgr {
                             answer.append(idx + startIdx)
                         }
                     }
+                    ansCombinations.append(answer)
                 }
             }
             return ansCombinations
+        }
+        
+        func generatePermutation(numberSet: [Int], previous: [Int] = [Int]()) -> [ Answer ] {
+            var partialPermutation = [Answer]()
+            if numberSet.count == 1 {
+                print(previous + numberSet)
+                let answer = Answer(answer: previous + numberSet)
+                partialPermutation.append(answer)
+                return partialPermutation
+            }
+            else {
+                for (idx, number) in numberSet.enumerate() {
+                    var currentPart = previous
+                    currentPart.append(number)
+                    
+                    var nextSet = numberSet
+                    nextSet.removeAtIndex(idx)
+                    
+                    partialPermutation += generatePermutation(nextSet, previous: currentPart)
+                }
+            }
+            return partialPermutation
         }
     }
 }
